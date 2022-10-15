@@ -4,7 +4,7 @@ const computadorSearch = require('../mocks/search');
 
 describe('1 - Teste a função fetchProducts', () => {
   it('verifica se fetchProducts é uma função', async () => {
-    expect(typeof fetchProducts).toBe(Function);
+    expect(typeof fetchProducts).toBe('function');
   })
   it('Verifica se ao chamar a funcao fetchProducts com o argumento computador, fetch sera chamado', async () => {
     await fetchProducts('computador');
@@ -16,10 +16,10 @@ describe('1 - Teste a função fetchProducts', () => {
     expect(fetch).toHaveBeenCalledWith(url);
   })
   it('Verifica se o retorno da funcao fetchProducts com argumento computador é uma estrutura de dados igual ao objeto computadorSearch', async () => {
-    expect(fetchProducts('computador')).toEqual(computadorSearch);
+    expect( await fetchProducts('computador')).toEqual(computadorSearch);
   })
   it('Verifica se ao chamar a funcao fetchProducts sem argumento, retorna mensagem de erro', async () => {
-    const fail = new Error('You must provide an url')
-    expect( await fetchProducts()).toHaveReturned(fail);
+    const retorno = new Error('You must provide an url')
+    expect( await fetchProducts()).toEqual(retorno);
   })
 });
