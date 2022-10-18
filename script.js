@@ -15,6 +15,9 @@ const createProductImageElement = (imageSource) => {
   return img;
 };
 
+const carrinhotItem = document.querySelector('.cart_items');
+const item = document.querySelector('.items');
+
 /**
  * Função responsável por criar e retornar qualquer elemento.
  * @param {string} element - Nome do elemento a ser criado.
@@ -72,11 +75,18 @@ const createCartItemElement = ({ id, title, price }) => {
   return li;
 };
 
-const item = document.querySelector('.items');
+const addCarts = async () => {
+  const button = document.querySelectorAll('.item_add');
+  button.forEach((botao) => botao.addEventListener('click', async () => {
+    const product = await fetchItem(getIdFromProductItem);
+    carrinhotItem.appendChild(createCartItemElement(product));
+    }));
+};
 
 window.onload = async () => {
   const fetchProd = await fetchProducts('computador');
   fetchProd.results.forEach((prod) => {
     item.appendChild(createProductItemElement(prod));
   });
+  addCarts();
 };
