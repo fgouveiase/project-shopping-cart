@@ -17,6 +17,8 @@ const createProductImageElement = (imageSource) => {
 
 const carrinhoItem = document.querySelector('.cart__items'); 
 const item = document.querySelector('.items');
+const buttonRemove = document.querySelector('.empty-cart');
+const ItemCart = document.querySelectorAll('.cart__item');
 
 /**
  * Função responsável por criar e retornar qualquer elemento.
@@ -95,6 +97,12 @@ const addCarts = () => {
     }));
 };
 
+const removeCartItem = () => {
+  buttonRemove.addEventListener('click', () => {
+    carrinhoItem.innerHTML = '';
+  });
+};
+
 const loadingText = () => {
   const elements = document.querySelector('.items');
   const createElement = document.createElement('p');
@@ -114,4 +122,5 @@ window.onload = async () => {
   });
   addCarts();
   loadingText();
+  removeCartItem();
 };
