@@ -15,7 +15,7 @@ const createProductImageElement = (imageSource) => {
   return img;
 };
 
-const carrinhotItem = document.querySelector('.cart_items');
+const carrinhoItem = document.querySelector('.cart__items'); 
 const item = document.querySelector('.items');
 
 /**
@@ -52,6 +52,10 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
   return section;
 };
 
+const cartItemClickListener = (event) => {
+  event.target.remove();
+};
+
 /**
  * Função que recupera o ID do produto passado como parâmetro.
  * @param {Element} product - Elemento do produto.
@@ -68,19 +72,31 @@ const getIdFromProductItem = (product) => product.querySelector('span.id').inner
  * @returns {Element} Elemento de um item do carrinho.
  */
 const createCartItemElement = ({ id, title, price }) => {
+  console.log(id, title, price);
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `ID: ${id} | TITLE: ${title} | PRICE: $${price}`;
   li.addEventListener('click', cartItemClickListener);
+  console.log(li);
   return li;
 };
 
-const addCarts = async () => {
-  const button = document.querySelectorAll('.item_add');
-  button.forEach((botao) => botao.addEventListener('click', async () => {
-    const product = await fetchItem(getIdFromProductItem);
-    carrinhotItem.appendChild(createCartItemElement(product));
+const addCarts = () => {
+  const button = document.querySelectorAll('.item__add');
+  button.forEach((botao) => botao.addEventListener('click', async (event) => {
+    const buttonEvent = event.target.parentElement.firstChild.innerText;
+    const product = await fetchItem(buttonEvent);
+    const productIdent = { 
+      id: product.id, 
+      title: product.title, 
+      price: product.price, 
+    };
+    carrinhoItem.appendChild(createCartItemElement(productIdent));
     }));
+};
+
+const removeItem = () => {
+
 };
 
 window.onload = async () => {
