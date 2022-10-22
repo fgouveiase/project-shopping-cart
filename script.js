@@ -95,8 +95,16 @@ const addCarts = () => {
     }));
 };
 
-const removeItem = () => {
+const loadingText = () => {
+  const elements = document.querySelector('.items');
+  const createElement = document.createElement('p');
+  createElement.className = 'loading';
+  createElement.innerHTML = 'carregando...';
+  elements.appendChild(createElement);
 
+    setTimeout(() => {
+      createElement.remove();
+    }, 1000);
 };
 
 window.onload = async () => {
@@ -105,4 +113,5 @@ window.onload = async () => {
     item.appendChild(createProductItemElement(prod));
   });
   addCarts();
+  loadingText();
 };
